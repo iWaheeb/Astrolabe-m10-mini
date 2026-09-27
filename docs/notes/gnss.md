@@ -1,7 +1,6 @@
 # GNSS - Support Components & Critical Notes
 
-Part: **u-blox SAM-M10Q, ordering code SAM-M10Q-00B, type number SAM-M10Q-00B-01.** Source: `docs/datasheets/SAM-M10Q-00B.pdf` (UBX-22013293 R04, 19-May-2023). Integration-level detail lives in the **SAM-M10Q Integration Manual, UBX-22020019**, which is *not* in this repo —
-items below marked *(verify)* depend on it.
+Part: **u-blox SAM-M10Q, ordering code SAM-M10Q-00B, type number SAM-M10Q-00B-01.** Source: Datasheet at `docs/datasheets/SAM-M10Q Datasheet.pdf` (UBX-22013293 R04, 19-May-2023). Integration manual at  `docs/datasheets/SAM-M10Q Integration Manual` (UBX-22020019 R02, 01-Jun-2023).
 
 ## Why SAM-M10Q?
 
