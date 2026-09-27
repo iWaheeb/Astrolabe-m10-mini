@@ -4,13 +4,11 @@ Part: **u-blox SAM-M10Q, ordering code SAM-M10Q-00B, type number SAM-M10Q-00B-01
 
 ## Why SAM-M10Q?
 
-- **Antenna is integrated.** 15 x 15 mm patch + SAW filter + LNA inside the module, so there is no
-RF design on our board. For a 2-layer, this makes things easier.
-- **Concurrent 4-constellation M10** (GPS/QZSS L1C/A, Galileo E1-B/C, GLONASS L1OF, BeiDou B1C)
+- **Antenna is integrated.** 15 x 15 mm patch + Surface Acoustic Wave (SAW) filter that reduces unwanted bands + Low Noise Amplifier (LNA) that boost weak GNSS signals inside the module (Integration Manual, 4.3.2 RF front-end). Having a full package like it make board design easier.
+- **Concurrent 4-constellation** (GPS/QZSS L1C/A, Galileo E1-B/C, GLONASS L1OF, BeiDou B1C)  
 with SBAS + QZSS enabled by default.
-- **Low power**: ~10 mA at VCC tracking in the default 4-GNSS mode.
-**Caveat accepted with this choice:** the published sensitivity/TTFF numbers are conditioned on a
-**50 x 50 mm ground plane** (Table 1) — see [[layout-rules]](layout-rules.md).
+
+
 
 ## Role & interface
 
