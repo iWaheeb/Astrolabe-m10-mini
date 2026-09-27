@@ -14,9 +14,11 @@ with SBAS + QZSS enabled by default.
 
 - Provides position/velocity/time to the flight controller over UART protocol.
 - **UART to Flight Controller:** TXD (pin 13) -> connector RX, RXD (pin 14) to connector TX. See [[connector-Interface]](connector-Interface.md).
-- **Default UART is 9600 baud, 8N1**,  NMEA out, NMEA + UBX in (Table 16). Bench tools and u-center 2 must connect at **9600 first**, before any reconfiguration.
-- Baud range 4800–921600; **no hardware flow control**.
-- **The module's own I²C (SDA pin 9, SCL pin 12) is left unconnected.** Pixhawk convention drives GPS over UART. Pins are left open, all inputs have internal pull-ups in normal operation (section 5), so open is the datasheet-sanctioned state.
+- **Default UART is 9600 baud, 8N1**,  NMEA out, NMEA + UBX in (Datasheet, Table 16).
+- UART baudrate possible configurations: [4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600] (Integration Manual, Table 11).
+- **The module's own I²C (SDA pin 9, SCL pin 12) is left unconnected.** Pixhawk convention drives GPS over UART. Pins are left open, all inputs have internal pull-ups in normal operation (Datasheet, section 5), so open is the datasheet-sanctioned state.
+
+
 
 ## Power supply & decoupling
 
