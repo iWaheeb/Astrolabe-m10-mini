@@ -20,7 +20,7 @@ with SBAS + QZSS enabled by default.
 
 
 
-## Power supply & decoupling
+## Power supply
 
 - Operating window: `VCC` 2.7–3.0–3.6 V, `V_IO` 2.7–3.0–VCC. Abs max 3.6 V on `VCC`, `V_IO` and `V_BCKP` (Datasheet, Table 11).
 - **VCC (pin 17) and V_IO (pin 2) are tied to the same 3.3 V rail** from the AP2112K-3.3. This is deliberate: the absolute-max for `VCC` and `V_IO` is 3.6 V, and more importantly; `V_IO` must not be higher than `VCC` by more than 0.3 V (Datasheet, 4.1 Absolute maximum ratings). Shorting them makes that constraint unviolatable by design. See [[power]](power.md).
