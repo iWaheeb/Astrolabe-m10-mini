@@ -22,22 +22,19 @@ with SBAS + QZSS enabled by default.
 
 ## Power supply & decoupling
 
-- **VCC (pin 17) and V_IO (pin 2) are tied to the same 3.3 V rail** from the AP2112K-3.3. This is deliberate: the absolute-max table requires 
-`V_IO ≤ VCC + 0.3 V`, and shorting them makes that constraint unviolatable by construction — no sequencing circuit, no supervisor, no brown-out corner where V_IO leads VCC. See [[power]](power.md).
-- Operating window: VCC 2.7–3.0–3.6 V, V_IO 2.7–3.0–VCC. Abs max 3.6 V on VCC, V_IO and V_BCKP.
-- Current draw (Table 13, default GPS+GAL+BDS+GLO, 3.0 V, 1 Hz):
+- Operating window: `VCC` 2.7–3.0–3.6 V, `V_IO` 2.7–3.0–VCC. Abs max 3.6 V on `VCC`, `V_IO` and `V_BCKP` (Datasheet, Table 11).
+- **VCC (pin 17) and V_IO (pin 2) are tied to the same 3.3 V rail** from the AP2112K-3.3. This is deliberate: the absolute-max for `VCC` and `V_IO` is 3.6 V, and more importantly; `V_IO` must not be higher than `VCC` by more than 0.3 V (Datasheet, 4.1 Absolute maximum ratings). Shorting them makes that constraint unviolatable by design. See [[power]](power.md).
+- Current draw when the chip is configured to utilize all the four constellations it supports (GPS, Galileo, Glonass, BeiDou) at 3.0 V supply  (typical voltage) with position update rate of 1 Hz, and LNA set to low gain (Datasheet, 4.3 Indicative power requirements):
 
-  | Rail   | Acquisition | Tracking (continuous) |
-  | ------ | ----------- | --------------------- |
-  | I_VCC  | 13 mA       | 10 mA                 |
-  | I_V_IO | 2.3 mA      | 2.3 mA                |
+  | Rail            | Acquisition (search) | Tracking (lock is established) |
+  | --------------- | -------------------- | ------------------------------ |
+  | Current at VCC  | 13 mA                | 10 mA                          |
+  | Current at V_IO | 2.3 mA               | 2.3 mA                         |
 
-- **Inrush at startup can reach 100 mA (section 4.3)**. The rail must source it without dropping out.
-- Decoupling **as intended**: 10 µF bulk + 100 nF at VCC, 100 nF at V_IO, placed at the module pins
-with short returns into the ground pour. *(verify against UBX-22020019 — the data sheet does not
-publish a reference decoupling network, and these are working values, not cited ones.)*
-- All ten GND pins (1, 4, 5, 6, 10, 11, 15, 16, 20) go to the pour with their own vias — they are
-the antenna's counterpoise, not just a return path
+- **Inrush at startup can reach 100 mA (Datasheet, 4.3 Indicative power requirements)**. It's the module startup draw; The rail must source it without sagging below the VCC minimum.
+- All nine GND pins (1, 4, 5, 6, 10, 11, 15, 16, 20) go to the ground coper (ground plane) through its own via (Datasheet, table 9).
+
+
 
 ## V_IO voltage-ramp constraint
 
@@ -60,6 +57,8 @@ Consequences for the design:
   a charged cap onto it — that is the fast-limit violation.
 4. Worth catching on a scope at bring-up: 10–90% rise time of 3V3 at the SAM-M10Q pin.
 
+
+
 ## Backup supply voltage (V_BCKP)
 
 - **V_BCKP (pin 3) operating range 1.65–3.6 V**; abs max 3.6 V. Below ~1.45 V (V_IOSWITCH) the
@@ -79,6 +78,8 @@ through **~100 Ω** and a **BAT54** isolation diode into V_BCKP.
 - **V_BCKP must never be left floating and must never exceed 3.6 V** — the supercap's 5.5 V rating
 is a *cap* rating; the node itself is clamped by the 3.3 V rail it charges from.
 - Sizing was raised from 0.1 F to 0.22 F once the 28 µA figure was confirmed against Table 14.
+
+
 
 ## Strap / control pins
 
@@ -114,6 +115,8 @@ ever be assumed here. **UART TX/RX are not 5 V-tolerant.**
 - **RF input abs-max 0 dBm at the antenna feed** (Table 10). Relevant only if this board is bench-run
 next to a transmitter or a GNSS simulator — do not inject into the patch.
 
+
+
 ## Layout
 
 Full board rules live in [[layout-rules]](layout-rules.md); the module-specific ones are:
@@ -137,6 +140,8 @@ and must not be flagged as cosmetic damage at incoming inspection.
 - Operating/storage temperature -40 to +85 °C.
 
 ---
+
+
 
 ### Open verify-items
 
